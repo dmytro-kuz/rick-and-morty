@@ -1,13 +1,11 @@
-import * as React from "react";
+import React from "react";
 import Box from "@mui/material/Box";
-import Character from "./Character/Character"
-import { Pagination } from "./Pagination/Pagination";
+import Characters from "./elements/Characters";
 
-export default function Main() {
+export default function BasicTabs() {
   return (
-    <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
-      <Character />
-      <Pagination sx={{ width: "100%" }} />
+    <Box sx={{ width: "100%" }}>
+      <Characters contentType={"characters"} />
     </Box>
   );
 }
