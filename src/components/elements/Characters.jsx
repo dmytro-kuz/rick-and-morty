@@ -12,7 +12,6 @@ const mapStateToProps = (state, ownProps) =>
         API: charactersAPI,
         filters: {
           name: "",
-          liked: false,
         },
       }
     : null;

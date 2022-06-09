@@ -9,17 +9,38 @@ import BasicModal from "../modal/BasicModal";
 
 export default function Filter({ content, setFilterData, handleChangePage }) {
   const [values, setValues] = useState();
+  const [liked, setLiked] = useState(false);
 
-  function handleChange(e) {
+
+  const handleChange = (e) => {
     setValues(e.target.outerText || e.target.value);
   }
 
-  function handleOnApply() {
+  const handleOnApply = () => {
+    let ids = [];
+    let str;
     if (values !== "") {
-      let str = `&name=${values.replace(" ", "+")}`;
+      if(liked) {
+        for(let i=0; i<localStorage.length; i++) {
+          let key = localStorage.key(i);
+          ids.push(key)
+        }
+      str = ids.join(',');
+      }
+      else{
+         str = `&name=${values.replace(" ", "+")}${ids.join(',')}`;
+      }
+      
+      // console.log(str);
       setFilterData(str);
       handleChangePage(null, 1, str);
     }
+
+  }
+  const handleLiked =(e) => {
+    // console.log(e.target.checked);
+    setLiked(!liked)
+    console.log(liked);
   }
 
   return (
@@ -33,8 +54,6 @@ export default function Filter({ content, setFilterData, handleChangePage }) {
           options={content.map((el) => el.name)}
           renderInput={(params) => (
             <TextField
-              // onClick={handleChange}
-
               onChange={handleChange}
               {...params}
               label='Search input'
@@ -47,6 +66,7 @@ export default function Filter({ content, setFilterData, handleChangePage }) {
         />
       </Stack>
       <FormControlLabel
+        onChange={handleLiked}
         sx={{ display: "flex", justifyContent: "center" }}
         label='Liked Characters'
         control={<Checkbox color='success' />}

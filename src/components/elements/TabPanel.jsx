@@ -15,6 +15,7 @@ function TabPanel({
   API,
 }) {
 
+
   useEffect(() => {
     fetchAPI(contentType, dispatch, API);
   }, [contentType, dispatch, API]);
@@ -76,7 +77,7 @@ function TabPanel({
           justifyContent: "space-around",
         }}>
         {!error ? (
-          content.map((res) => <CharactersCard key={Math.floor(Math.random() * 10000000000001)} data={res} />)
+          content.map((res) => <CharactersCard key={Math.floor(Math.random() * 10000000000001)} data={res}  />)
         ) : (
           <Box>There is nothing here</Box>
         )}
