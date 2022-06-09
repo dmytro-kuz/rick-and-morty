@@ -12,10 +12,7 @@ const mapStateToProps = (state, ownProps) =>
         API: charactersAPI,
         filters: {
           name: "",
-          status: ["alive", "dead", "unknown", ""],
-          species: "",
-          type: "",
-          gender: ["female", "male", "genderless", "unknown", ""],
+          liked: false,
         },
       }
     : null;

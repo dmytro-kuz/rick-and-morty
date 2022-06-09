@@ -5,10 +5,18 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { CardMedia } from "@mui/material";
+import Checkbox from '@mui/material/Checkbox';
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import Favorite from '@mui/icons-material/Favorite';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import { Box } from "@mui/material";
+
 import BasicModal from "../modal/BasicModal";
 
 export default function CharactersCard({ data }) {
   const [open, setOpen] = useState(false);
+  const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
   const handleOpenInfo = () => {
     setOpen(true);
@@ -46,9 +54,14 @@ export default function CharactersCard({ data }) {
           {data.name}
         </Typography>
 
+        <Box sx={{display: 'flex', justyfyContent: 'space-between'}}>
         <Typography className='cardsInfo' variant='h6'>
           Status: {data.status}
         </Typography>
+        <Checkbox sx={{ color: 'red'}} {...label} icon={<FavoriteBorder />} checkedIcon={<Favorite sx={{color: 'red'}} />} />
+     
+      </Box>
+
       </CardContent>
       <CardActions sx={{ display: "flex", justifyContent: "center" }}>
         <Button className='cardsInfo1' onClick={handleOpenInfo}>

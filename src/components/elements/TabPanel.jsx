@@ -14,6 +14,7 @@ function TabPanel({
   filters,
   API,
 }) {
+
   useEffect(() => {
     fetchAPI(contentType, dispatch, API);
   }, [contentType, dispatch, API]);
@@ -21,7 +22,8 @@ function TabPanel({
   const [page, setPage] = useState(1);
   const [filterData, setFilterData] = useState(``);
 
-  const handleChangePage = (_, newPage = 1, filter = filterData) => {
+  const handleChangePage = (contentType, newPage = 1, filter = filterData) => {
+ 
     fetchAPI(contentType, dispatch, API + `?page=${newPage}` + filter);
     setPage(newPage);
   };
@@ -32,6 +34,7 @@ function TabPanel({
     <>
       <Box>
         <Filter
+          content = {content}
           filters={filters}
           setFilterData={setFilterData}
           handleChangePage={handleChangePage}
@@ -73,7 +76,7 @@ function TabPanel({
           justifyContent: "space-around",
         }}>
         {!error ? (
-          content.map((res) => <CharactersCard key={res.id} data={res} />)
+          content.map((res) => <CharactersCard key={Math.floor(Math.random() * 10000000000001)} data={res} />)
         ) : (
           <Box>There is nothing here</Box>
         )}

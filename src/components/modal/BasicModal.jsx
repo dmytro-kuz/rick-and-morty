@@ -1,31 +1,12 @@
-import * as React from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useEffect, useState } from "react";
-import { generateRandomID } from "../../helpers/generate.random.id";
 import { episodesAPI } from "../../fetch/requests";
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  minWidth: 300,
-  maxWidth: 500,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4
-};
-
-const style1 = {
-  maxHeight: 300,
-  overflowY: "auto"
-};
-
 export default function BasicModal({ data, open, onClose }) {
-  let [listOfEpisodes, setList] = useState([]);
+  const [episodesLists, setEpisodesLists] = useState([]);
 
   useEffect(() => {
     fetch(
@@ -36,10 +17,10 @@ export default function BasicModal({ data, open, onClose }) {
     )
       .then((res) => res.json())
       .then((res) => {
-        if (Array.isArray(res)) setList([...res]);
-        else setList([res]);
+        if (Array.isArray(res)) setEpisodesLists([...res]);
+        else setEpisodesLists([res]);
       });
-    return setList([]);
+    return setEpisodesLists([]);
   }, [data.episode, open]);
 
   return (
@@ -47,53 +28,54 @@ export default function BasicModal({ data, open, onClose }) {
       <Modal
         open={open}
         onClose={onClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box className="allInfo" sx={style}>
+        aria-labelledby='modal-modal-title'
+        aria-describedby='modal-modal-description'>
+        <Box
+          className='allInfo'
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            minWidth: 300,
+            maxWidth: 500,
+            bg: "background.paper",
+            border: "2px solid #000",
+            boxShadow: 24,
+            p: 4,
+          }}>
           <Typography
-            className="cardsInfo"
-            id="modal-modal-title"
-            variant="h3"
-            component="h2"
-          >
+            className='cardsInfo'
+            id='modal-modal-title'
+            variant='h3'
+            component='h2'>
             {data.name}
           </Typography>
+
           <Typography
-            className="cardsInfo"
-            sx={{ mb: 1.5 }}
-            color="text.secondary"
-          >
-            Gender: {data.gender}
-          </Typography>
-          <Typography
-            className="cardsInfo"
-            id="modal-modal-description"
+            className='cardsInfo'
+            id='modal-modal-description'
             sx={{ mt: 2 }}
-            variant="body2"
-          >
+            variant='1'>
             Species: {data.species}
             <br />
-            Status: {data.status}
+            Gender: {data.gender}
             <br />
             Location: {data.location.name}
             <br />
-            Type: {data.type || "None"}
-            <br />
-            Origin: {data.origin.name}
+            Status: {data.status}
             <br />
             Created: {new Date(data.created).toLocaleDateString()}
           </Typography>
           <Box
-            id="modal-modal-description"
-            sx={{ mt: 2, ...style1 }}
-            variant="body2"
-          >
-            Episodes: {listOfEpisodes.length}
+            id='modal-modal-description'
+            sx={{ mt: 2, maxHeight: 300, overflowY: "auto" }}
+            variant='body2'>
+            Episodes: {episodesLists.length}
             <br />
             <ul>
-              {listOfEpisodes.map((eps) => (
-                <li key={generateRandomID(10)}>
+              {episodesLists.map((eps) => (
+                <li key={Math.floor(Math.random() * 10000000000001)}>
                   [{eps.episode}] {eps.name}
                 </li>
               ))}
