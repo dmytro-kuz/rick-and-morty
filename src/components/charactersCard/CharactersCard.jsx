@@ -31,6 +31,7 @@ export default function CharactersCard({ data}) {
 
   return (
     <Card
+    className="card"
       sx={{
         cursor: "pointer",
         m: 1.5,

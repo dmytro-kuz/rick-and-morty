@@ -7,46 +7,59 @@ import { Button } from "@mui/material";
 import { Checkbox, FormControlLabel } from "@mui/material";
 import BasicModal from "../modal/BasicModal";
 
-export default function Filter({ content, setFilterData, handleChangePage }) {
+export default function Filter({
+  filter,
+  content,
+  setFilterData,
+  handleChangePage,
+}) {
   const [values, setValues] = useState();
   const [liked, setLiked] = useState(false);
 
-
   const handleChange = (e) => {
     setValues(e.target.outerText || e.target.value);
-  }
+  };
 
   const handleOnApply = () => {
     let ids = [];
-    let str;
-    if (values !== "") {
-      if(liked) {
-        for(let i=0; i<localStorage.length; i++) {
-          let key = localStorage.key(i);
-          ids.push(key)
-        }
-      str = ids.join(',');
+    let str = "";
+    if (liked) {
+      for (let i = 0; i < localStorage.length; i++) {
+        let key = localStorage.key(i);
+        ids.push(key);
       }
-      else{
-         str = `&name=${values.replace(" ", "+")}${ids.join(',')}`;
-      }
-      
-      // console.log(str);
-      setFilterData(str);
-      handleChangePage(null, 1, str);
+      str = `${ids}`;
+    } else {
+      str = `&name=${values.replace(" ", "+")}`;
     }
-
-  }
-  const handleLiked =(e) => {
-    // console.log(e.target.checked);
-    setLiked(!liked)
+    console.log(str);
+    setFilterData(str);
     console.log(liked);
-  }
+    handleChangePage(null, 1, str, liked);
+  };
+
+  const handleLiked = (e) => {
+    // console.log(e.target.checked);
+    setLiked(e.target.checked);
+    // console.log(liked);
+  };
 
   return (
-    <Box>
+    <Box
+      sx={{
+        m: "0 auto",
+        width: "800px",
+        paddingTop: "15px",
+        background: "rgb(255, 255, 255, 0.5)",
+        borderRadius: "15px 15px 0 0",
+      }}>
       <Stack spacing={2} sx={{ m: "20px auto", maxWidth: "700px" }}>
         <Autocomplete
+          sx={{
+            boxShadow: "0 5px 8px 0px rgb(13, 255, 0, 0.747)",
+            border: " 0.5px solid rgb(13, 255, 0, 0.747)",
+            borderRadius: "3px",
+          }}
           onChange={handleChange}
           freeSolo
           id='free-solo-2-demo'
@@ -54,6 +67,7 @@ export default function Filter({ content, setFilterData, handleChangePage }) {
           options={content.map((el) => el.name)}
           renderInput={(params) => (
             <TextField
+              sx={{ background: "rgb(0, 0, 0, 0.3)" }}
               onChange={handleChange}
               {...params}
               label='Search input'
@@ -71,9 +85,15 @@ export default function Filter({ content, setFilterData, handleChangePage }) {
         label='Liked Characters'
         control={<Checkbox color='success' />}
       />
-      <Button sx={{m: '20px 0 20px 43%'}} className='btn' onClick={handleOnApply} variant='outlined'>
-        Apply filter
-      </Button>
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <Button
+          sx={{ m: "20px ", width: "50%", background: "rgb(0, 0, 0, 0.3)" }}
+          className='btn'
+          onClick={handleOnApply}
+          variant='outlined'>
+          Apply filter
+        </Button>
+      </Box>
     </Box>
   );
 }
