@@ -21,10 +21,9 @@ function TabPanel({
 
   const [page, setPage] = useState(1);
   const [filterData, setFilterData] = useState(``);
-  // const [liked, setLiked] = useState(false);
 
   const handleChangePage = (
-    contentType,
+    contentType = "characters",
     newPage = 1,
     filter = filterData,
     liked
@@ -35,8 +34,8 @@ function TabPanel({
       fetchAPI(contentType, dispatch, API + `?page=${newPage}` + filter);
     }
     setTimeout(() => {
-      window.scrollTo({top: 480, behavior: 'smooth'});
-    }, 1000)
+      window.scrollTo({ top: 480, behavior: "smooth" });
+    }, 1000);
     setPage(newPage);
   };
 
@@ -59,13 +58,13 @@ function TabPanel({
         sx={{
           p: 1,
           pr: 5,
-          m: '0 auto',
+          m: "0 auto",
           maxWidth: "752px",
           paddingTop: "15px",
           background: "rgb(255, 255, 255, 0.5)",
           borderRadius: "0 0 15px 15px",
-          display: 'flex',
-          justifyContent: 'center'
+          display: "flex",
+          justifyContent: "center",
         }}>
         {info ? (
           <Box
@@ -81,8 +80,8 @@ function TabPanel({
           </Box>
         ) : null}
         <Pagination
-        size="large"
-        sx={{color: 'rgb(13, 255, 0)'}}
+          size='large'
+          sx={{ color: "rgb(13, 255, 0)" }}
           page={!error ? page : 1}
           count={!error ? info.pages : 1}
           onChange={handleChangePage}
@@ -116,17 +115,17 @@ function TabPanel({
           justifyContent: "center",
         }}>
         <Pagination
-        sx={{
-          p: 1,
-          pr: 5,
-          m: '0 auto',
-          maxWidth: "750px",
-          paddingTop: "15px",
-          background: "rgb(255, 255, 255, 0.5)",
-          borderRadius: "15px",
-          display: 'flex',
-          justifyContent: 'center'
-        }}
+          sx={{
+            p: 1,
+            pr: 5,
+            m: "0 auto",
+            maxWidth: "750px",
+            paddingTop: "15px",
+            background: "rgb(255, 255, 255, 0.5)",
+            borderRadius: "15px",
+            display: "flex",
+            justifyContent: "center",
+          }}
           page={!error ? page : 1}
           count={!error ? info.pages : 1}
           onChange={handleChangePage}

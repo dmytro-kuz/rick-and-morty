@@ -1,7 +1,6 @@
 import { setCharactersError, setCharactersInfo, setCharactersList } from "../actions/actions";
 
 export default function fetchAPI(type, dispatch, url) {
-  console.log(url);
   fetch(url)
     .then((res) => res.json())
     .then((res) => {

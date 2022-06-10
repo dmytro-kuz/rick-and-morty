@@ -12,6 +12,7 @@ const mapStateToProps = (state, ownProps) =>
         API: charactersAPI,
         filters: {
           name: "",
+          id: ""
         },
       }
     : null;
